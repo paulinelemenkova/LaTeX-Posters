@@ -1,0 +1,348 @@
+\documentclass[landscape,final,a0paper,fontscale=0.285]{baposter}
+
+\usepackage{calc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{bm}
+\usepackage{url}
+
+\usepackage{gensymb} 
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage[super]{nth}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage[font=tiny,labelfont=bf]{caption} %scriptsize footnotesize
+%\usepackage{times}
+%\usepackage{helvet}
+%\usepackage{bookman}
+\usepackage{palatino}
+
+\graphicspath{{images/}{../images/}}
+\usetikzlibrary{calc}
+
+\newcommand{\SET}[1]  {\ensuremath{\mathcal{#1}}}
+\newcommand{\MAT}[1]  {\ensuremath{\boldsymbol{#1}}}
+\newcommand{\VEC}[1]  {\ensuremath{\boldsymbol{#1}}}
+\newcommand{\Video}{\SET{V}}
+\newcommand{\video}{\VEC{f}}
+\newcommand{\track}{x}
+\newcommand{\Track}{\SET T}
+\newcommand{\LMs}{\SET L}
+\newcommand{\lm}{l}
+\newcommand{\PosE}{\SET P}
+\newcommand{\posE}{\VEC p}
+\newcommand{\negE}{\VEC n}
+\newcommand{\NegE}{\SET N}
+\newcommand{\Occluded}{\SET O}
+\newcommand{\occluded}{o}
+
+\setlength{\columnsep}{1.5em}
+\setlength{\columnseprule}{0mm}
+
+
+\newcommand{\compresslist}{%
+\setlength{\itemsep}{1pt}%
+\setlength{\parskip}{0pt}%
+\setlength{\parsep}{0pt}%
+}
+% ----------------------------------------------------------------------------
+% *** START BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+\usepackage[
+	backend=biber, 
+%	style = numeric,
+	style=phys, % без doi
+	maxbibnames=99,
+	citestyle=numeric,
+	giveninits=true,
+	isbn=true,
+	url=true,
+	natbib=true,
+	sorting=ndymdt,
+	bibencoding=utf8,
+	useprefix=false,
+	language=auto, 
+	autolang=other,
+	backref=true,
+	backrefstyle=none,
+	indexing=cite,
+]{biblatex}
+\DeclareSortingTemplate{ndymdt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort[direction=descending]{
+    \field{sortyear}
+    \field{year}
+    \literal{9999}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{month}
+    \literal{99}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{day}
+    \literal{99}
+  }
+  \sort{
+    \field{sorttitle}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=4,padchar=0]{volume}
+    \literal{9999}
+  }
+}
+
+\addbibresource{Chris.bib}%   \tiny  \scriptsize \footnotesize \normalsize
+\renewcommand*{\bibfont}{\scriptsize} % 
+
+% ----------------------------------------------------------------------------
+% *** END BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+
+\begin{document}
+
+%\definecolor{lightblue}{cmyk}{0.83,0.24,0,0.12}
+\definecolor{lightblue}{rgb}{0.145,0.6666,1}
+
+% Draw a video
+\newlength{\FSZ}
+\newcommand{\drawvideo}[3]{% [0 0.25 0.5 0.75 1 1.25 1.5]
+   \noindent\pgfmathsetlength{\FSZ}{\linewidth/#2}
+   \begin{tikzpicture}[outer sep=0pt,inner sep=0pt,x=\FSZ,y=\FSZ]
+   \draw[color=lightblue!50!black] (0,0) node[outer sep=0pt,inner sep=0pt,text width=\linewidth,minimum height=0] (video) {\noindent#3};
+   \path [fill=lightblue!50!black,line width=0pt] 
+     (video.north west) rectangle ([yshift=\FSZ] video.north east) 
+    \foreach \x in {1,2,...,#2} {
+      {[rounded corners=0.6] ($(video.north west)+(-0.7,0.8)+(\x,0)$) rectangle +(0.4,-0.6)}
+    }
+;
+   \path [fill=lightblue!50!black,line width=0pt] 
+     ([yshift=-1\FSZ] video.south west) rectangle (video.south east) 
+    \foreach \x in {1,2,...,#2} {
+      {[rounded corners=0.6] ($(video.south west)+(-0.7,-0.2)+(\x,0)$) rectangle +(0.4,-0.6)}
+    }
+;
+   \foreach \x in {1,...,#1} {
+     \draw[color=lightblue!50!black] ([xshift=\x\linewidth/#1] video.north west) -- ([xshift=\x\linewidth/#1] video.south west);
+   }
+   \foreach \x in {0,#1} {
+     \draw[color=lightblue!50!black] ([xshift=\x\linewidth/#1,yshift=1\FSZ] video.north west) -- ([xshift=\x\linewidth/#1,yshift=-1\FSZ] video.south west);
+   }
+   \end{tikzpicture}
+}
+
+\hyphenation{resolution occlusions}
+
+%---------------------- POSTER STARTS ----------------------------------%
+
+\begin{poster}%
+  % Poster Options
+  {
+  % Show grid to help with alignment
+  grid=false,
+  % Column spacing
+  colspacing=1em,
+  % Color style
+  bgColorOne=white,
+  bgColorTwo=white,
+  borderColor=lightblue,
+  headerColorOne=black,
+  headerColorTwo=lightblue,
+  headerFontColor=white,
+  boxColorOne=white,
+  boxColorTwo=lightblue,
+  % Format of textbox
+  textborder=roundedleft,
+  % Format of text header
+  eyecatcher=true,
+  headerborder=closed,
+  headerheight=0.1\textheight,
+%  textfont=\sc, An example of changing the text font
+  headershape=roundedright,
+  headershade=shadelr,
+  headerfont=\Large\bf\textsc, %Sans Serif
+  textfont={\setlength{\parindent}{1.5em}},
+  boxshade=plain,
+  %background=shade-tb,
+  background=plain,
+  linewidth=2pt
+  }
+  % Eye Catcher
+  {\includegraphics[height=6em]{F6}} 
+  % Title
+  {\bf\textsc{Quality Assessment of Data from CHRIS/PROBA}\vspace{0.5em}}
+  % Authors
+  {\textsc{Polina Lemenkova}}
+  % University logo
+  {% The makebox allows the title to flow into the logo, this is a hack because of the L shaped logo.
+    \includegraphics[height=3.5em]{images/logo}
+  }
+
+
+    \newcommand{\colouredcircle}{%
+      \tikz{\useasboundingbox (-0.2em,-0.32em) rectangle(0.2em,0.32em); \draw[draw=black,fill=lightblue,line width=0.03em] (0,0) circle(0.18em);}}
+
+%---------------------- COLUMN 1 ----------------------------------%
+
+  \headerbox{Info}{name=info,column=0,row=0}{
+\scriptsize{Student ID: 3 23369248. Course: 'GEOG6038 Calibration and Validation of Earth Observation Data'. Practical 1: Quality assessment of data from CHRIS/PROBA. Student: Lemenkova P. Supervisor: Prof. Dr. E. J. Milton. Funding: Erasmus Mundus MSc Scholarship GEM-L0022/2009/EW, University of Southampton, UK. 2009.
+
+Acknowledgement: I thank Brian Amberg and Thomas Vetter (Univerait\"{a}t Basel) for baposter \LaTeX \space source code used for this poster.
+ }}
+ 
+\headerbox{Introduction}{name=introduction,column=0,below=info}{%,bottomaligned=speed
+
+  \noindent{\centering\includegraphics[width=0.80\linewidth]{F6}\\}
+  \indent \footnotesize{Image: Vertical air photo of Thorney Island.}
+\footnotesize{  
+  \indent ROI: Thorney Island, Chichester harbour (UK): unique wetland environment, a place for rare bird colonies. Monitoring this place is important for environmental management. CHRIS/PROBA image characteristics: 18 bands, 07/10/2004, 17m ground resolution. 
+  }}
+  
+\headerbox{Data: CHRIS/PROBA Image}{name=data,column=0,span=1,above=bottom}{
+\footnotesize{
+CHRIS (\emph{Compact High Resolution Imaging Spectrometer}): new imaging spectrometer carried on board a space platform PROBA, http://www.chris-proba.org.uk/. More information: Cutter M.A., Lobb D.R. Cockshott R. (2000) Compact High Resolution Imaging Spectrometer. Elsevier Science Ltd, Kent, UK. Kuusk A., Kuusk J., Lang M.. A dataset for the validation of reflectance models. Remote Sensing of Environment 113 (2009) 889–892 }
+
+\footnotesize{PROBA: \emph{Project for On Board Autonomy}. The satellite was successfully launched in late October 2001, Shriharikota (India). Info: Bermin J. PROBA – Project for On-Board Autonomy and web: http://earth.esa.int/missions/thirdpartymission/proba.html  
+   \vspace{0.3em}
+  }}
+
+%---------------------- COLUMN 2 ----------------------------------%
+
+\headerbox{CHRIS Image Quality}{name=quality,column=1,row=0}{%,bottomaligned=problem
+\footnotesize{For the quality of CHRIS images .hdr files were examined:}
+\begin{enumerate}\compresslist
+   \item CHRIS...47AO\_41.hdr (taken at +36\degree)
+   \item CHRIS...47A1\_41.hdr (taken at -36\degree)
+   \item CHRIS...47A2\_41.hdr (taken at +55\degree)
+   \item CHRIS...47A3\_41.hdr (taken at -55\degree)
+   \item CHRIS...479F\_41.hdr (taken at nadir)
+\end{enumerate}
+
+\footnotesize{Images taken at the nadir are of good quality, while those at different angles have defects}
+
+%\noindent\begin{tabular}{r@{\hspace{0.3em}}c@{\hspace{1.5em}}c@{}}
+%\begin{sideways}{\makebox[0.37\linewidth][c]{CHRIS .hdr files}}\end{sideways} &
+%	\includegraphics[width=0.42\linewidth]{F9} & \includegraphics[width=0.40\linewidth]{F10} \\[2em]
+%\end{tabular}
+    \drawvideo{2}{40}{%
+	\includegraphics[width=0.5\linewidth]{F9}%
+	\includegraphics[width=0.48\linewidth]{F10}%
+    }
+\footnotesize{\textcolor{red}{Left}: Comparing images taken at +55\degree dgr (47A2\_41) and nadir images (479F\_41) right
+\textcolor{red}{Right}: Images taken at +36\degree dgr (47A0\_41), left and nadir images (479F\_41) right.}
+
+\noindent\begin{tabular}{r@{\hspace{0.3em}}c@{\hspace{1.5em}}c@{}}
+\begin{sideways}{\makebox[0.37\linewidth][c]{CHRIS .hdr files}}\end{sideways} &
+	\includegraphics[width=0.36\linewidth]{F3} & \includegraphics[width=0.48\linewidth]{F11}
+\end{tabular}
+
+\footnotesize{
+\textcolor{red}{Left}: Inverted Image received from bands Combination 4(R)-2(G)-1(B). 
+
+\textcolor{red}{Right}: Images taken at +36\degree and -36\degree (CHRIS 47A0\_41 and CHRIS 47A1\_41) both have inverted direction.}
+
+  }
+
+\headerbox{Spectral Bands}{name=background model,column=1,below=quality}{%,bottomaligned=speed
+
+\noindent\begin{tabular}{r@{\hspace{0.2em}}c@{\hspace{1.5em}}c@{}}
+\begin{sideways}{\makebox[0.3\linewidth][c]{\scriptsize{Narrow bands}}}\end{sideways} &
+	\includegraphics[width=0.40\linewidth]{F4} &
+	\includegraphics[width=0.40\linewidth]{F5}
+\end{tabular}
+
+\noindent\begin{tabular}{r@{\hspace{0.2em}}c@{\hspace{1.5em}}c@{}}
+\begin{sideways}{\makebox[0.3\linewidth][c]{\scriptsize{Narrow bands}}}\end{sideways} &
+	\includegraphics[width=0.20\linewidth]{F8} &
+	\includegraphics[width=0.45\linewidth]{F12}
+\end{tabular}
+}
+  
+%---------------------- COLUMN 3 ----------------------------------%
+
+\headerbox{Image Noise}{name=noise,column=2,span=2,row=0}{
+
+    \drawvideo{5}{40}{%
+	\includegraphics[width=0.5\linewidth]{F1}%
+	\includegraphics[width=0.42\linewidth]{F2}%
+    }
+       \vspace{-2.0em}
+\scriptsize{
+       \begin{multicols}{2}
+2 types of noise affecting CHRIS images:
+\begin{enumerate}\compresslist
+   \item vertical noise (vertical stripes corrected by comparing values of neighbor pixels)
+   \item horizontal noise (easy to detect and correct using horizontal profile of each file
+\end{enumerate}
+Example of vertical noises in CHRIS image (left). Image source: Garcia J.G., Moreno J. Removal of noises in CHRIS/PROBA images: Application to the Sparc Campaign Data. Correction of noises can be made through DIELMO 3D Methodology. Example of horizontal noise in CHRIS image.
+    \end{multicols}
+}
+      \vspace{-0.6em}
+      
+   \drawvideo{5}{40}{%
+        \includegraphics[width=0.197\linewidth]{F13}%
+          \includegraphics[width=0.194\linewidth]{F14}%
+          \includegraphics[width=0.199\linewidth]{F17}%
+          \includegraphics[width=0.21\linewidth]{F18}%
+          \includegraphics[width=0.197\linewidth]{F19}%
+      }
+\scriptsize{
+  \begin{tabular*}{\linewidth}{*{5}{@{}p{0.2\linewidth}@{}}}
+    {\hfill{}CHRIS\_CH\_041007\_479F\_41 Bands\_12-8-1\hfill{}}  &
+    {\hfill{}CHRIS\_CH\_041007\_479F\_41 Bands\_7-4-1\hfill{}} &
+    {\hfill{}CHRIS\_CH\_041007\_479F\_41 Bands\_11-4-2\hfill{}} &
+    {\hfill{}CHRIS\_CH\_041007\_479F\_41 Bands\_6-5-2\hfill{}} &
+    {\hfill{}CHRIS\_CH\_041007\_479F\_41 Bands\_15-4-1\hfill{}} 
+  \end{tabular*}
+}
+}
+
+%----------------------
+
+\headerbox{Image Inversion}{name=speed,column=2,span=1,row=0,below=noise,aligned=bib}{
+\scriptsize{
+Inverted Image, bands: \textcolor{red}{Left}:13-12-11. \textcolor{red}{Right}: 9(R)-10(G)-11(B).
+}
+
+\drawvideo{2}{20}{%
+	\includegraphics[width=0.4\linewidth]{F15}%
+	\includegraphics[width=0.44\linewidth]{F16}%
+}
+%\indent 
+\scriptsize{
+$\hookleftarrow$ \textcolor{red}{Left}: CHRIS Superspectral Land: Many narrow bands around the red-edge. Image source: Barnsley M.J. et al. The PROBA/CHRIS Mission: A Low-Cost Smallsat for Hyperspectral, Multi-Angle, Observations of the Earth Surface and Atmosphere. .
+$\Leftarrow$\textcolor{red}{Right}: CHRIS Superspectral Water: many narrow bands in visible wavelengths. Figure contrasts per frame evidence for each patch with or w/o a background model.
+$\hookleftarrow$Quality natural-colored image of wetlands: nadir-taken CHRIS image with bands combination of corresponding spectral channels. View angles in a CHRIS/PROBA acquisition. 
+}
+}
+ 
+\headerbox{Bibliography}{name=bib,column=3,above=bottom}{
+\scriptsize{Author's publications on Geography, Remote Sensing and GIS}:\\
+    \tiny
+\vspace{-2.5em}
+	\nocite{*}
+\printbibliography[heading=none]
+}
+
+\end{poster}
+
+\end{document}
