@@ -1,0 +1,359 @@
+\documentclass[a0paper,landscape,final]{baposter}
+
+\usepackage{times}
+\usepackage{calc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{multicol}
+
+\usepackage{csquotes}
+
+%\usepackage{gensymb} % degree symbol
+\usepackage[super]{nth}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage[font=tiny,labelfont=bf]{caption} %scriptsize footnotesize
+
+\usepackage{pgfbaselayers}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+\usepackage{helvet}
+%\usepackage{bookman}
+\usepackage{palatino}
+
+%\newcommand{\captionfont}{\footnotesize}
+
+\selectcolormodel{cmyk}
+
+\graphicspath{{images/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Multicol Settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\columnsep}{0.7em}
+\setlength{\columnseprule}{0mm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Save space in lists. Use this after the opening of the list
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\compresslist}{%
+\setlength{\itemsep}{1pt}%
+\setlength{\parskip}{0pt}%
+\setlength{\parsep}{0pt}%
+}
+
+% ----------------------------------------------------------------------------
+% *** START BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+\usepackage[
+	backend=biber, 
+%	style = numeric,
+	style=phys, % без doi
+	maxbibnames=99,
+	citestyle=numeric,
+	giveninits=true,
+	isbn=true,
+	url=true,
+	natbib=true,
+	sorting=ndymdt,
+	bibencoding=utf8,
+	useprefix=false,
+	language=auto, 
+	autolang=other,
+	backref=true,
+	backrefstyle=none,
+	indexing=cite,
+]{biblatex}
+\DeclareSortingTemplate{ndymdt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort[direction=descending]{
+    \field{sortyear}
+    \field{year}
+    \literal{9999}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{month}
+    \literal{99}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{day}
+    \literal{99}
+  }
+  \sort{
+    \field{sorttitle}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=4,padchar=0]{volume}
+    \literal{9999}
+  }
+}
+
+\addbibresource{Andes.bib}%   \tiny  \scriptsize \footnotesize \normalsize
+\renewcommand*{\bibfont}{\scriptsize} % 
+
+% ----------------------------------------------------------------------------
+% *** END BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+
+\begin{document}
+
+%%%---------------------------------------------------------------------------
+%%% Poster starts 
+%%%---------------------------------------------------------------------------
+
+\typeout{Poster Starts}
+\background{
+  \begin{tikzpicture}[remember picture,overlay]%
+    \draw (current page.north west)+(-2em,-0em) node[anchor=north west] {\hspace{-2em}\includegraphics[height=1.1\textheight]{silhouettes_background}};
+  \end{tikzpicture}%
+}
+\definecolor{silver}{cmyk}{0,0,0,0.3}
+\definecolor{yellow}{cmyk}{0,0,0.9,0.0}
+\definecolor{reddishyellow}{cmyk}{0,0.22,1.0,0.0}
+\definecolor{black}{cmyk}{0,0,0.0,1.0}
+\definecolor{darkYellow}{cmyk}{0,0,1.0,0.5}
+\definecolor{darkSilver}{cmyk}{0,0,0,0.1}
+
+\definecolor{lightyellow}{cmyk}{0,0,0.3,0.0}
+\definecolor{lighteryellow}{cmyk}{0,0,0.1,0.0}
+\definecolor{lighteryellow}{cmyk}{0,0,0.1,0.0}
+\definecolor{lightestyellow}{cmyk}{0,0,0.05,0.0}
+\begin{poster}{
+  % Show grid to help with alignment
+  grid=false,
+  % Column spacing
+  colspacing=1em,
+  % Color style
+  bgColorOne=lighteryellow,
+  bgColorTwo=lightestyellow,
+  borderColor=reddishyellow,
+  headerColorOne=yellow,
+  headerColorTwo=reddishyellow,
+  headerFontColor=black,
+  boxColorOne=lightyellow,
+  boxColorTwo=lighteryellow,
+  % Format of textbox
+  textborder=roundedleft,
+  % Format of text header
+  eyecatcher=false,
+  headerborder=open,
+  headerheight=0.08\textheight,
+  headershape=roundedright,
+  headershade=shadelr,
+  headerfont=\Large\textsf, %Sans Serif
+  boxshade=shadelr,
+  background=plain,
+  linewidth=2pt
+  }
+  % Eye Catcher
+  {} % No eye catcher for this poster. If an eye catcher is present, the title is centered between eye-catcher and logo.
+  % Title
+  {\sf %Sans Serif
+  %\bf% Serif
+Conservation Area Designation in the Andes}
+  % Authors
+  {\sf %Sans Serif
+  % Serif
+Polina Lemenkova\hspace{3em}
+pauline.lemenkova@gmail.com\hspace{3em}
+}
+  % University logo
+{{\begin{minipage}{20em}
+    \hfill
+    \includegraphics[height=4.0em]{logo.png}
+  \end{minipage}}
+  }
+
+  \tikzstyle{light shaded}=[top color=baposterBGtwo!30!white,bottom color=baposterBGone!30!white,shading=axis,shading angle=30]
+
+% Width of left inset image
+     \newlength{\leftimgwidth}
+     \setlength{\leftimgwidth}{0.78em+8.0em}
+
+% A coloured circle useful as a bullet with an adjustably strong filling
+    \newcommand{\colouredcircle}[1]{%
+      \tikz{\useasboundingbox (-0.2em,-0.32em) rectangle(0.2em,0.32em); \draw[draw=black,fill=baposterBGone!80!black!#1!white,line width=0.03em] (0,0) circle(0.18em);}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------- COLUMN 0 ----------------------------------%
+
+\headerbox{Info}{name=contribution,column=0,row=0}{
+\scriptsize{
+\textbf{Student Poster}. Student ID: 3 23369248. Course: 'GEOG6038 Calibration and Validation of Earth Observation Data'
+Practical 3: Conservation Area Designation in the Andes. Student: Lemenkova P. Supervisor: Prof. Dr. E.J. Milton. Funding: Erasmus Mundus MSc Scholarship GEM-L0022/2009/EW, University of Southampton, UK. 2009
+}}
+ 
+\headerbox{Introduction}{name=Introduction,column=0,below=contribution}{
+\footnotesize{P\'{a}ramo National Park in Ecuador is known for its unique natural resources in high altitude grasslands. The ecosystems of P\'{a}ramo consist mostly of rare species and are the key protected area for exceptionally high endemism. ENVI software enables to make an analysis of the area and to produce a map based on 2 criteria: vegetation amount and altitude. We need to show vegetation growing on different heights and to create 3D-visualization of the analysis.
+%\includegraphics[width=4.0cm]{F1.jpg}
+}
+}
+
+\headerbox{1. Image: Display}{name=Display,column=0,below=Introduction}{
+\scriptsize{
+a): True-colour composite of the ETM+ image, bands 3,2,1 (RGB). b): Image enhancement was done, since the default contrast is bad.}
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.5\linewidth]{F1}&
+    \includegraphics[height=0.5\linewidth]{F2}\\[0.2em]
+    \smaller a) & \smaller b)
+  \end{tabular}
+\end{center}
+ }
+ 
+\headerbox{2. Image: Contrast Enhancement}{name=Enhancement,column=0,above=bottom}{
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.48\linewidth]{F3}&
+    \includegraphics[height=0.48\linewidth]{F4}&
+    \includegraphics[height=0.48\linewidth]{F5}\\[0.2em]
+    \smaller a) & \smaller b) & \smaller c)
+  \end{tabular}
+  \end{center}
+\scriptsize{Contrast stretched ETM+image In bands 3,2,1 (RGB). Method: Enhance-Gaussian. a): 'Forestry' composite of ETM+ Image in 4,5,3 bands. b): ETM+ Image in 7-4-2 bands (RGB) with bright vegetation usually used for general public. c): The most common false composite 4-3-2 (RGB).
+}}
+%---------------------- COLUMN 1 ----------------------------------%
+
+\headerbox{3. SRTM-Data Upload}{name=SRTM,column=1,row=0}{
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.5\linewidth]{F6a}&
+    \includegraphics[height=0.5\linewidth]{F6b}\\[0.2em]
+    \smaller a) & \smaller b)
+  \end{tabular}
+\end{center}
+   	a): SRTM-image (Shuttle Radar Topography Mission) displayed in ENVI.
+	b): (SRTM\_resampl285) It has only 1 Band, So that we display it In grey colour.
+SRTM is necessary to derive elevation model. It has .hgt format and Contains the height of terrain in meters.
+}
+
+\headerbox{4. 3D Visualization}{name=3D,column=1,below=SRTM}{
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.4\linewidth]{F7}&
+    \includegraphics[height=0.4\linewidth]{F8}\\[0.2em]
+    \smaller a) & \smaller b)
+  \end{tabular}
+  \end{center}
+a): 3D Surface View (Colour-band Image and DEM made from SRTM).
+b): 3D Surface View (Colour-band Image upon DEM made from SRTM), other point of 3D – 7view, manipulated by the mouse and moving around the screen.  
+  3D Surface View (Colour-band Image And DEM made from SRTM), control panel of ENVI.  
+  3D representation (Colour-band Image upon DEM made from SRTM). DEM resolution is 256, Vertical Exaggeration = 2.0. File saved as raster .jpg-image
+  
+  \begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.35\linewidth]{F9}&
+    \includegraphics[height=0.35\linewidth]{F10}
+  \end{tabular}
+  \end{center}
+}
+
+%---------------------- COLUMN 2 ----------------------------------%
+
+\headerbox{5. Calculating Greenness Index}{name=Greenness,column=2,row=0}{
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.27\linewidth]{F11}&
+    \includegraphics[height=0.27\linewidth]{F12}&
+    \includegraphics[height=0.27\linewidth]{F13}\\[0.2em]
+    \smaller a) & \smaller b) & \smaller c)
+  \end{tabular}
+\end{center}
+Creating Greenness Indexes is necessary for classification of different vegetation communities (“Transform – Tasseled Cap” ENVI) 
+Each of the TC Bands is represented in grey scale. ETM\_TC file. Right: Wetness and 4th Band.
+Brightness \& Greenness. Bands of Vegetation Indexes. TC Greenness Index gives us a value of zero greenness: no vegetation. We use it for creating ROI.
+}
+
+\headerbox{6. Creation Vegetation Layer ROI}{name=ROI,column=2,span=1,below=Greenness}{
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.27\linewidth]{F14}&
+    \includegraphics[height=0.27\linewidth]{F15}&
+    \includegraphics[height=0.27\linewidth]{F16}
+  \end{tabular}
+\end{center}
+ROI (Region of Interest). 
+Creation of ROI In vegetation using “Tools–Region of Interest-ROI”. Input Band – Greenness. Lower limit = 1.0 Max Value = upper limit In TC Image. Result: all Vegetation is selected (coloured yellow).
+Creation of ROI layer (vegetation). SRTM as a background image.
+Computation of Statistics (vegetation).
+}
+
+\headerbox{7. Creating Altitude Layer}{name=Altitude,column=2,span=1,below=ROI}{
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.25\linewidth]{F17}&
+    \includegraphics[height=0.25\linewidth]{F18}&
+    \includegraphics[height=0.25\linewidth]{F19}
+  \end{tabular}
+  \end{center}
+Creating Altitude Zones by “Intersect Regions” for each pair of ROIs. \\
+Final altitude zones are: Lowland Vegetation (1-2500m), Subparamo Vegetation (2501-3500), Paramo Vegetation (3501-4100) and Superparamo Vegetation (4101 – 5000). \\
+These zones are shown on the map in different colors (yellow, beige, two greens)  
+}
+
+%---------------------- COLUMN 3 ----------------------------------%
+
+\headerbox{8. Mapping and Design}{name=Mapping,column=3,span=1,row=0}{
+\footnotesize{Vegetation Map with grid lines. We finally added Geographic coordinate system representing a Grid Line on the Map. Map saved as Geo-TIFF. }
+\begin{center}
+  \includegraphics[height=0.5\linewidth]{F20}
+   \end{center}
+}
+
+\headerbox{3D-Mapping (Final Map + DEM)}{name=DEM,column=3,span=1,below=Mapping}{
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.4\linewidth]{F21}&
+    \includegraphics[height=0.4\linewidth]{F22}
+  \end{tabular}
+  \end{center}
+\scriptsize{Displaying final map in 3D view by SRTM DEM image. 3D of the map was draped as classified final image of Paramo upon the SRTM file of elevation (heights). The colors were changed by ENVI (TIFF-conversion)}
+}
+
+\headerbox{Bibliography}{name=references,column=3,below=DEM,above=bottom}{
+\scriptsize{Author's publications on Geography, Remote Sensing and GIS}:\\
+    \tiny
+\vspace{-2.5em}
+	\nocite{*}
+\printbibliography[heading=none]
+}
+  
+\end{poster}%
+%
+\end{document}
+
+%Changing the font size locally (from biggest to smallest):	
+%\Huge
+%\huge
+%\LARGE
+%\Large
+%\large
+%\normalsize (default)
+%\small
+%\footnotesize
+%\scriptsize
+%\tiny
