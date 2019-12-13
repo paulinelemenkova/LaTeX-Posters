@@ -1,0 +1,366 @@
+\documentclass[portrait,final,a0paper,fontscale=0.277]{baposter}
+
+\usepackage{calc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{booktabs}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+
+%\usepackage{times}
+%\usepackage{helvet}
+%\usepackage{bookman}
+\usepackage{palatino}
+
+\newcommand{\captionfont}{\footnotesize}
+
+\graphicspath{{images/}{../images/}}
+\usetikzlibrary{calc}
+
+
+\newcommand{\Matrix}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+\newcommand{\Vector}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+
+\newcommand*{\norm}[1]{\mathopen\| #1 \mathclose\|}% use instead of $\|x\|$
+\newcommand*{\abs}[1]{\mathopen| #1 \mathclose|}% use instead of $\|x\|$
+\newcommand*{\normLR}[1]{\left\| #1 \right\|}% use instead of $\|x\|$
+
+\newcommand*{\SET}[1]  {\ensuremath{\mathcal{#1}}}
+\newcommand*{\FUN}[1]  {\ensuremath{\mathcal{#1}}}
+\newcommand*{\MAT}[1]  {\ensuremath{\boldsymbol{#1}}}
+\newcommand*{\VEC}[1]  {\ensuremath{\boldsymbol{#1}}}
+\newcommand*{\CONST}[1]{\ensuremath{\mathit{#1}}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\diag}{diag}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\vectorize}{vec}
+\DeclareMathOperator*{\reshape}{reshape}
+
+%\font\dsfnt=dsrom12
+
+\newcommand{\SNN}{\ensuremath{\mathbb N}}
+\newcommand{\SRR}{\ensuremath{\mathbb R}}
+\newcommand{\SZZ}{\ensuremath{\mathbb Z}}
+%-----------------------------------------------------------------------------
+% Matrices of the shape model
+\renewcommand{\a}{\VEC\alpha}
+\renewcommand{\v}{\VEC v}
+\renewcommand{\l}{\VEC l}
+\newcommand*{\m}{\VEC{\mu}}
+\newcommand*{\M}{\MAT{M}}
+\renewcommand*{\P}{\MAT{\Pi}}
+
+%\newcommand{\J}{\SET J}
+\newcommand{\J}{\SET{P}}
+\newcommand{\Active}{\mathcal{A}}
+\newcommand{\Selection}{\mathbf{S}}
+\newcommand{\AllSelections}{\mathfrak{S}}
+\newcommand{\Params}{\VEC\Theta}
+
+\setlength{\columnsep}{1.5em}
+\setlength{\columnseprule}{0mm}
+
+\newcommand{\compresslist}{%
+\setlength{\itemsep}{1pt}%
+\setlength{\parskip}{0pt}%
+\setlength{\parsep}{0pt}%
+}
+
+%\usepackage{gensymb} 
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage[super]{nth}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage{wrapfig}
+\usepackage{float}
+\definecolor{lightorange}{rgb}{0.9,0.4,0}
+\definecolor{lightestorange}{rgb}{1,0.8,0.5}
+\definecolor{darkorange}{rgb}{0.2,0.1,0}
+
+\hyphenation{resolution occlusions}
+% ----------------------------------------------------------------------------
+% *** START BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+\usepackage[
+	backend=biber, 
+%	style = numeric,
+	style=phys, % без doi
+	maxbibnames=99,
+	citestyle=numeric,
+	giveninits=true,
+	isbn=true,
+	url=true,
+	natbib=true,
+	sorting=ndymdt,
+	bibencoding=utf8,
+	useprefix=false,
+	language=auto, 
+	autolang=other,
+	backref=true,
+	backrefstyle=none,
+	indexing=cite,
+]{biblatex}
+\DeclareSortingTemplate{ndymdt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort[direction=descending]{
+    \field{sortyear}
+    \field{year}
+    \literal{9999}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{month}
+    \literal{99}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{day}
+    \literal{99}
+  }
+  \sort{
+    \field{sorttitle}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=4,padchar=0]{volume}
+    \literal{9999}
+  }
+}
+
+\addbibresource{Victoria.bib}%   \tiny  \scriptsize \footnotesize \normalsize
+\renewcommand*{\bibfont}{\scriptsize} % 
+
+% ----------------------------------------------------------------------------
+% *** END BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+
+\begin{document}
+
+% ----------------------------------------------------------------------------
+
+\begin{poster}%
+  % Poster Options
+  {
+  % Show grid to help with alignment
+  grid=false,
+  % Column spacing
+  colspacing=1em,
+  % Color style
+  bgColorOne=lightestorange,
+  bgColorTwo=white,
+  borderColor=darkorange,
+  headerColorOne=darkorange,
+  headerColorTwo=lightorange,
+  headerFontColor=white,
+  boxColorOne=lightestorange,
+  boxColorTwo=lightorange,
+  % Format of textbox
+  textborder=faded,
+  % Format of text header
+  eyecatcher=true,
+  headerborder=closed,
+  headerheight=0.1\textheight,
+%  textfont=\sc, An example of changing the text font
+  headershape=roundedright,
+  headershade=shadelr,
+  headerfont=\Large\bf\textsc, %Sans Serif
+  textfont={\setlength{\parindent}{1.5em}},
+  boxshade=plain,
+%  background=shade-tb,
+  background=plain,
+  linewidth=2pt
+  }
+  % Eye Catcher
+  {\includegraphics[height=7em]{images/F1.jpg}} 
+  % Title
+  {\bf\textsc{\LARGE{Investigation of the Lake Victoria Region\\ (Africa: Tanzania, Kenya and Uganda)}}\vspace{0.5em}}
+  % Authors
+  {\textsc{\large{Polina Lemenkova}}\\
+  \small{Student Poster Assignment for a GIS Project. \\
+Course: 'GISA 02 GIS: Geographical Information Systems - Advanced Course 0701'} \\
+\footnotesize{MSc in Geo-Information Science and Earth Observation for Environmental Modelling and Management, 09/04/2010}
+}
+  % University logo
+  {% The makebox allows the title to flow into the logo, this is a hack because of the L shaped logo.
+    \includegraphics[height=7.0em]{images/logo-transp.png}
+  }
+
+\newcommand{\colouredcircle}{%
+      \tikz{\useasboundingbox (-0.2em,-0.32em) rectangle(0.2em,0.32em); \draw[draw=black,fill=lightblue,line width=0.03em] (0,0) circle(0.18em);}}
+      
+%------------------------- COLUMN 0 -----------------------------
+
+\headerbox{Study area}{name=area,column=0,row=0}{
+\scriptsize{Study area: Victoria Lake and 3 countries: Tanzania, Kenya and Uganda. Lake Victoria is the \nth{2} largest fresh water body on the Earth. It has unique environment and gives origin to Nile. Focus: natural landscapes. Sustainable development: prerequisite for successful environmental monitoring in the Victoria Lake. Economic development model: 1) resource-saving technologies; 2) planting and protecting forests areas; 3) environmental policy and conservation.
+\begin{center}
+ \begin{tabular}{@{}c@{}c@{}}
+    \includegraphics[height=0.4\linewidth]{F2}&
+    \includegraphics[height=0.4\linewidth]{F3}\\[0.2em]
+        \smaller a) & \smaller b)
+  \end{tabular}
+\end{center}
+   	a): Lake Victoria and surrounding countries. Graphic: Eric Daigh/Circle.
+	b): Relief 3D image. Source: Wikipedia.
+ }}
+
+\headerbox{Research Problem}{name=problem,column=0,below=area}{
+\scriptsize{
+Victoria Lake: unique environment, important role in the economy of countries supporting 25 M people through fish catchment reaching up to 90-270\$ per capita per annum. Kenya, Tanzania and Uganda control 6\%, 49\% and 45\% of the lake surface. 
+
+Lake catchment provides livelihood of 1/3 of the population of 3 countries with agricultural economy supported by fishing and agriculture (tea and coffee plantations). Quality of the environment is a fundamental factor in maintaining and increasing living standards of the population. 
+
+Main problem is sustainable development, well-balanced between using natural resources and human economic progress. Essential factors in this problem are population and natural resources management.
+
+}}
+ 
+\headerbox{Research Objectives}{name=objectives,column=0,below=problem}{
+\scriptsize{
+Research focuses on the investigation of the environmental, biological, social and economic characteristics of the region. Aim: regional monitoring and sustainable management. Research objective: create a geodatabase (.mbd) and mapping in ArcGIS 9.3 for sustainable development and environmental monitoring. GIS project for spatial analysis: integration of raster \& vector data, metadata, descriptions of layers (land cover map legend). Data organizing \& management: ArcGIS 9.3. Operations \& technique: ArcGIS Spatial Analyst. Project architecture: ArcCatalog. Spatial referencing \& re-projection: ArcToolbox.
+
+\begin{center}
+ \begin{tabular}{@{}c@{}c@{}}
+    \includegraphics[height=0.3\linewidth]{F4} &
+    \includegraphics[height=0.3\linewidth]{F5}
+  \end{tabular}
+\end{center}
+  }}
+ 
+\headerbox{Data and Materials}{name=formulation,column=0,below=objectives}{
+\scriptsize{
+\begin{itemize}
+	\item ArcGIS format .shp files of administrative boundaries fof Uganda, Tanzania, Kenya. Each .shp file has .shx and .prj: info on prj and metadata. UNEP grids.
+	\item Precipitation climatic data in text format, digital meteorological data: precipitation values.
+	\item DEMs: elevations (USGS). 2 tiles of the USGS DEM map format (file set of ASCII-encoded text with coordinates and elevations). Reference: WGS84, prj: Lambert Azimuthal Equal Area. Metadata of geo-referencing info: .prj files. 2 data of GTopo30 E020N40.DEM cover Kenya and Uganda; E020S10.DEM: SE Tanzania. DEM files: horizontal grid spacing of 30 arc sec (1 km).
+	\item Land cover data (raster), .bsq format: IGBP.bsq, a part of global land cover database. Pixel values: class numbers for land cover classification scheme legend.c
+	\item Population data: UNEP. Raster data for Africa for 1990 and 2000. Each dataset had 2 different files: population density (popd00 and popd90) and population total. Additional miscellaneous datasets: Landsat ETM+ images, MrSid format (S-36-00\_2000.sid).
+	\item \scriptsize{Left: Landuse clipped layer. Center: Clipped DEM raster; Right: Highlighted water areas: joined 2 DEM tiles. $\Longrightarrow$}
+\end{itemize}
+  }}
+
+%------------------------- COLUMN 1 -----------------------------
+
+\headerbox{Mapping and Calculations}{name=mapping,column=1,span=2,row=0}{
+
+  {
+\smaller\centering
+\begin{tabular}{@{}rccccccc@{}}
+\begin{sideways}\makebox[0pt][c]{Success}\end{sideways} &
+\parbox[c]{0.21\linewidth}{\includegraphics[width=\linewidth]{F16}} &
+\parbox[c]{0.21\linewidth}{\includegraphics[width=\linewidth]{F17}} &
+\parbox[c]{0.21\linewidth}{\includegraphics[width=\linewidth]{F18}} &
+\parbox[c]{0.21\linewidth}{\includegraphics[width=\linewidth]{F19}} \\
+\midrule
+\begin{sideways}\makebox[0pt][c]{Failure}\end{sideways} &
+\parbox[c]{0.21\linewidth}{\includegraphics[width=\linewidth]{F9}} &
+\parbox[c]{0.22\linewidth}{\includegraphics[width=\linewidth]{F13}} &
+\parbox[c]{0.21\linewidth}{\includegraphics[width=\linewidth]{F14}} &
+\parbox[c]{0.21\linewidth}{\includegraphics[width=\linewidth]{F15}}
+\end{tabular}
+  }\\[-1em]
+      \begin{multicols}{2}
+      \scriptsize{
+Statistics: Population for the country and provincial level calculated by Zonal Statistics, ArcGIS Spatial Analyst. The area statistics was calculated by Dissolve Manager, ArcToolbox. Population data for provinces: the area of each country and population raster clipped were used. Area: Add Field / Calculate Geometry / Square Km. Info about the size of each province and country: from the attribute table of each country layer.
+Rain Distribution: Precipitation level is higher in areas with middle precipitation (450-500mm): layers' overlay made by ArcMap and transparency. Correlation between rain distribution and topography was examined by overlay: DEM relief raster layer + Precipitation GRID ESRI layer. Notable is high precipitation in the valleys and above the lake. Low levels: highlands. Middle values: plateaus. Croplands: uplands. Slicing DEM into 5 classes $=>$ Statistics on distribution of elevation types in pixels: 56440 total, 11231 of class 1: 0-999 m (19.8\%); 13478 of class 2: 1000-1999 m (23,8\%); 26899 of class 3: 1999-3000 m (47,6\%), 4811 of class 4: 3000,1 -4000 m (8.5\%) and 21 of class 5: > 4000,1 m (0.03\%).
+}
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+	\includegraphics[height=0.28\linewidth]{F10}&
+	\includegraphics[height=0.28\linewidth]{F11}&
+	\includegraphics[height=0.28\linewidth]{F12}\\[-0.2em]
+%    \smaller a) & \smaller b) & \smaller c)
+  \end{tabular}
+\end{center}
+      \end{multicols}
+      \begin{multicols}{2}   
+      
+      \scriptsize{   
+Computing how much cropland is needed by 2030. Areas of cropland were estimated using statistics of the raster layer Land cover. Amount of crop per capita was computed by dividing total cropland in each country and total population. Estimation of cropland needed in 2030: multiplying crop per capita needed for the total population by 2030. What \% of the total forest area has to be converted to cropland to expand cropland by 2030? Total forest area per country was calculated using raster statistics.}
+
+	\tiny{
+Amount of cropland needed in 2030 was estimated by distraction cropland in 2030 from current cropland. Amount of forest areas was distracted. Negative values were received: there is more need for croplands than available forest areas. The \%  from the actual areas was calculated.
+
+How much forest can be converted to cropland from protected areas ? Clipped vector layer of the protected areas was converted to raster using Spatial Analyst / Vector to Raster. New raster was re-classified to one class. Land cover raster layer was multiplied to the Protected areas layer. After calculation, raster of Land Cover for the territory of protected area zones was received. Areas for each country were calculated. Outside and inside located areas were estimated by subtraction those areas from the total for each country: Tanzania, Kenya and Uganda.
+	}
+       \end{multicols}
+}
+
+\headerbox{Data Preprocessing}{name=solution,column=1,row=0,below=mapping}{
+\scriptsize{
+Data preparation. Initial vector data: UNEP .shp. Spatial reference properties: Africa Albers Equal Area Conic projection, standard parallels 20 and -23, central meridian 25 and Datum WGS-84, Projection GEOGRAPHIC, Spheroid CLARKE1866.
+
+Data conversion from ASCII text data format to raster using ArcToolbox / Conversion Tools / ASCII to Raster (Climate precipitation data). 
+
+DEM raster processing. CON function was used to highlight pixels with high values and subtract 65536 from them, to receive negative values and to indicate water areas. 2 DEM tiles were merged in 1. DEM area was clipped by ROI raster mask with one class: Spatial Analysis / Raster Calculator.
+
+Land cover data processing. Creation of .hdr header file and getting technical data: No of bands, rows, columns, resolution. Conversion file from .bsq to GRID raster ESRI format (band sequential raster file). The file was projected and clipped using ROI raster. Linking land cover classes legend to GRID raster file by Join and common columns (classes \nth{2} to \nth{17}). .twf data conversion to .tiff raster format. Clipping by ROI mask.
+
+  }
+  }
+ 
+   \headerbox{Data Processing}{name=processing,column=1,above=bottom}{
+{
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }}
+	\includegraphics[height=0.48\linewidth]{F6}&
+	\includegraphics[height=0.48\linewidth]{F7}&
+	\includegraphics[height=0.48\linewidth]{F8}\\[0.2em]
+  \end{tabular}
+\end{center}
+}
+}
+
+%------------------------- COLUMN 2 -----------------------------
+
+\headerbox{Results}{name=representation,column=2,below=mapping}{
+\tiny{
+Areas of cropland needed in 2030: Kenya – 248,778 $km^{2}$; Tanzania – 991,469 $km^{2}$; Uganda - 153,992 $km^{2}$. 
+
+Percentage converted to cropland in 2030 (from the total forest area): Kenya – 370\%; Tanzania – 148\%; Uganda - 618\%. Amount of forests can be converted to cropland from the protected zones: Inside protected areas: Kenya – 9$km^{2}$; Tanzania –1025 $km^{2}$; Uganda - 15$km^{2}$; Outside protected areas: Kenya – 795$km^{2}$; Tanzania – 6484$km^{2}$; Uganda - 242$km^{2}$. 
+
+  }
+  }
+
+\headerbox{Bibliography}{name=references,column=2,above=bottom}{
+  \noindent
+\scriptsize{Author's publications on Geography, Remote Sensing and GIS}:\\
+    \tiny
+\vspace{-2.5em}
+	\nocite{*}
+\printbibliography[heading=none]
+  }
+
+\end{poster}
+
+\end{document}
+
+%Changing the font size locally (from biggest to smallest):	
+%\Huge
+%\huge
+%\LARGE
+%\Large
+%\large
+%\normalsize (default)
+%\small
+%\footnotesize
+%\scriptsize
+%\tiny
