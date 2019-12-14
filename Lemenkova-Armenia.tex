@@ -1,0 +1,233 @@
+\documentclass[landscape,a0paper,fontscale=0.337]{baposter}
+
+\usepackage[vlined]{algorithm2e}
+\usepackage{times}
+\usepackage{calc}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{gensymb} % degree symbol
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+\usepackage[super]{nth}
+
+\graphicspath{{images/}}
+
+ \newcommand{\RotUP}[1]{\begin{sideways}#1\end{sideways}}
+
+ \setlength{\columnsep}{0.7em}
+ \setlength{\columnseprule}{0mm}
+
+ % Save space in lists. Use this after the opening of the list
+ \newcommand{\compresslist}{%
+ \setlength{\itemsep}{1pt}%
+ \setlength{\parskip}{0pt}%
+ \setlength{\parsep}{0pt}%
+ }
+
+% ----------------------------------------------------------------------------
+% *** START BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+\usepackage[
+	backend=biber, 
+%	style = numeric,
+	style=phys, % без doi
+	maxbibnames=99,
+	citestyle=numeric,
+	giveninits=true,
+	isbn=true,
+	url=true,
+	natbib=true,
+	sorting=ndymdt,
+	bibencoding=utf8,
+	useprefix=false,
+	language=auto, 
+	autolang=other,
+	backref=true,
+	backrefstyle=none,
+	indexing=cite,
+]{biblatex}
+\DeclareSortingTemplate{ndymdt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort[direction=descending]{
+    \field{sortyear}
+    \field{year}
+    \literal{9999}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{month}
+    \literal{99}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{day}
+    \literal{99}
+  }
+  \sort{
+    \field{sorttitle}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=4,padchar=0]{volume}
+    \literal{9999}
+  }
+}
+
+\addbibresource{Armenia.bib}%   \tiny  \scriptsize \footnotesize \normalsize
+\renewcommand*{\bibfont}{\tiny} % 
+
+% ----------------------------------------------------------------------------
+% *** END BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{poster}{
+ % Show grid to help with alignment
+ grid=false,%true
+ % Column spacing
+ colspacing=0.5em,
+ % Color style
+ headerColorOne=cyan!20!white!90!black,
+ borderColor=cyan!30!white!90!black,
+ % Format of textbox
+ textborder=faded,
+ % Format of text header
+ headerborder=open,
+ headershape=roundedright,
+ headershade=plain,
+ background=none,
+ bgColorOne=cyan!10!white,
+ headerheight=0.12\textheight}
+ % Eye Catcher
+ {
+      \includegraphics[width=0.06\linewidth]{F1}
+      \includegraphics[width=0.065\linewidth]{F2}
+      \includegraphics[width=0.105\linewidth]{F3}
+      \includegraphics[width=0.105\linewidth]{F4}
+ }
+ % Title
+ {\sc\Large Detection of vegetation coverage in urban agglomeration of Brussels\\ by NDVI indicator using eCognition software\\ and remote sensing measurements}
+ % Authors
+ {Polina Lemenkova\\[0.5em]
+ Presented at: \emph{\nth{3} International Conference on GIS and Remote Sensing},\\
+ 17-19 November 2014 | Tsaghkadzor, Armenia
+  }
+ % University logo
+ {
+      \includegraphics[width=0.11\linewidth]{F5}
+      \includegraphics[width=0.065\linewidth]{F6}
+ }
+
+% ------------------------------------- COLUMN 0 ----------------------------
+
+\headerbox{Abstract}{name=abstract,column=0,row=0,span=2}{
+The study focuses on the semi-automatic detection of the vegetation on the satellite panchromatic image covering area of Brussels, Belgium. Using functions of the Normalized Difference Vegetation Index (NDVI) and spectral reflectane parameters of the image, the vegetation was identified on the satellite scene. The research question was to assess, how NDVI measurements can be used for urban studies using remote sensing data. The aim is to distinguish and separate on the map built-up areas from the green spaces (parks, gardens, etc) within the urban landscape. The research is supported by the raster imageand the eCognition software for image analysis. The results show detected vegetation areas in eastern part of Brussels. The research demonstrated methodological applicability of eCognition software for GIS-based urban mapping and ecological assessment (areas and sizes of vegetation coverage).
+  }
+
+\headerbox{Introduction}{name=introduction,column=0,below=abstract}{
+Study area encompasses selected regions of the Brussels municipality, Belgium. In the past years the city of Brussels is experiencing intensification of the density of building structures. Unlike some other European cities where the problem is urbanization and expansion of the city margins to the suburbia, urban structure of Brussels is intensification of the buildings density in the city centre and existing dwelling districts. 
+}
+
+\headerbox{Research problem}{name=problem,column=0,below=introduction}{
+City structure tends to become more intense and dense, due to the process of filling empty spaces in the urban patterns and high level of housing. Another example of urban processes in Brussels is reorganization of the industrial areas. At the same time, monitoring vegetation areas is essential for environmental sustainability of the capital. Lack of the green spaces may cause ecological instability and increase atmospheric pollution. Remote sensing data (raster image) were used together with NDVI function, in order to detect areas covered by city parks aimed to highlight specific problems of Brussels.
+}
+
+   \headerbox{Data}{name=data,column=0,span=1,below=problem}{
+Data include vector and raster types. Raster data consists o fVHR Pl\'{e}iades satellite imagery covering Brussels city. The image IMG\_PHR1A\_P has been provided by the Astrium, EADS company, projected in UTM (Universe Transverse Mercator projection system), 31\degree N, WGS84 reference ellipsoid. Vector data include ground topographic map in shp format (ArcGIS), a part of the municipal project of Brussels URBIS.
+   }
+
+ \headerbox{Research objective}{name=objective,column=0,below=data,above=bottom}{
+Research objective: to evaluate, how to efficiently use object oriented image analysis for mapping land cover types using raster images. Detecting vegetation and built-up areas using remote sensing (RS) data enables to assess the percentage of the coverage of the city by newly created building. Vegetation areas were masked to highlight urban growth. This method is based on use of RS and cadastral data, processed by model-based sub-pixel supervised classification and non-parametric ML method. 
+}
+% ------------------------------------- COLUMN 1 ----------------------------
+
+\headerbox{Software: eCognition}{name=software,column=1,below=abstract}{
+eCognition enables object oriented multi-resolution processing of raster images. It is the first object-oriented image analysis commercial software on geospatial market. It provides appropriate link between RS imagery and GIS. Principle of eCognition: images processing by information contained in the image as not by single pixels but rather by objects and their topology. Using segmentation algorithm and extraction of image object primitives (parks, gardens, buildings), it classifies the whole segments of the homogeneous image, recognized as objects.\\
+\begin{center}
+    \includegraphics[height=0.49\linewidth]{F8}
+    \includegraphics[height=0.49\linewidth]{F9}
+    \includegraphics[height=0.49\linewidth]{F10}
+\end{center}
+    }
+
+% ------------------------------------- COLUMN 2 ----------------------------
+
+   \headerbox{Methods}{name=methods,column=2,span=2,row=0}{
+%   \vspace{-1.2em}    
+\begin{multicols}{2} {
+\textcolor{red}{Step I}. Panchromatic image was loaded and processed.
+
+\textcolor{red}{Step II}. Image was segmented using principle of the Multiresolution Segmentation. This operation consists in splitting image into segments, to simplify the complexity of the initial image. It is done by the machine embedded logic based on mathematic algorithms and simplifying models. The general rule divides the area into regions according to the principle “neighbour pixels have similar parameters” (spectral reflectance value, texture, form, shape).
+
+\textcolor{red}{Step III}. Vegetation coverage was detected and separated from other objects (impervious structures) using natural characteristics of its spectral reflectance. The arithmetic expression for Normalized Difference Vegetation Index (NDVI) was created in eCognition operators by formula for spectral reflectance in visible (VIS) and near infrared (NIR) bands. This enabled to detect pixels of vegetation: NDVI=(NIR-VIS)/(NIR+VIS). It was added to the conditions of objects processing thereafter.
+
+\textcolor{red}{Step IV}. Vegetation extraction. Logical condition for vegetation detection: we assign all objects with NDVI values >0.3 as vegetation. This is based on the vegetation properties: dense tree canopy usually have positive values of NDVI (0.3 to 0.8). On the contrary, all other objects have low NDVI values. E.g.: water bodies have low reflectance in both spectral bands (band 3 and band 4), therefore, they have very low positive and sometimes slightly negative NDVI values (depending on the local hydro-chemical conditions, depth). Bare soils usually have small positive NDVI values (0.1 to 0.2), as their spectral reflectance in near-infrared bands is larger than in red ones. Based on this, the NDVI formula was applied and green areas within the city were distinguished. The objects with NDVI values >0.3 were assigned to the 'vegetation' class.
+}
+\end{multicols}
+
+}   
+
+\headerbox{Results}{name=results,column=2,below=methods,span=1}{
+
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }}
+    \includegraphics[height=0.42\linewidth]{F11}&
+    \includegraphics[height=0.42\linewidth]{F12}&
+    \includegraphics[height=0.42\linewidth]{F13}&
+  \end{tabular}
+  \end{center}
+}
+
+\headerbox{Acknowledgement}{name=acknowledgement,column=2,below=results,span=2}{
+\footnotesize{Current work has been supported by \emph{Bourse d’excellence, Service de Bourse d’\'{e}tude, Wallonie-Bruxelles International} for author's 2-months research stay at l'Universit\'{e} libre de Bruxelles  (01/09/2012 - 30/10/2012). Grant Nr. SOR/2011/36604.}
+}
+
+\headerbox{Conclusions}{name=conclusions,column=3,below=methods,span=1}{
+
+\begin{multicols}{2}
+Urban landscapes have complex environmental and socio-economic function and serve as habitat and agricultural surface in the surroundings. Land cover studies supported by satellite image contribute to the development of urban management system. Using object-oriented approach together with GIS techniques applied to the RS data enables to perform geospatial analysis with special focus on urban landscapes and a  case study of Brussels.
+
+  \end{multicols}
+}
+   
+\headerbox{Bibliography}{name=references,column=2,below=acknowledgement,span=2,above=bottom}{
+\tiny{Author's publications on Geography, Remote Sensing and GIS}:\\
+%    \tiny
+\vspace{-1.5em}
+	\nocite{*}
+\printbibliography[heading=none]
+}
+
+\end{poster}%
+%
+\end{document}
+%Changing the font size locally (from biggest to smallest):	
+%\Huge
+%\huge
+%\LARGE
+%\Large
+%\large
+%\normalsize (default)
+%\small
+%\footnotesize
+%\scriptsize
+%\tiny
