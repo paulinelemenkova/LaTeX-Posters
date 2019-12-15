@@ -1,0 +1,322 @@
+\PassOptionsToPackage{table,dvipsnames,svgnames,x11names}{xcolor}
+
+\documentclass[a0paper,landscape,final,fontscale=0.35]{baposter} 
+
+\usepackage{times}
+\usepackage{calc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{multicol}
+
+\usepackage{csquotes}
+
+\usepackage{gensymb} % degree symbol
+\usepackage[super]{nth}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage[font=tiny,labelfont=bf]{caption} %scriptsize footnotesize
+
+\usepackage{pgfbaselayers}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+%\usepackage{helvet}
+\usepackage{bookman}
+%\usepackage{palatino}
+
+%\newcommand{\captionfont}{\footnotesize}
+
+%\selectcolormodel{cmyk}
+
+\graphicspath{{images/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Multicol Settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\columnsep}{0.7em}
+\setlength{\columnseprule}{0mm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Save space in lists. Use this after the opening of the list
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\compresslist}{%
+\setlength{\itemsep}{1pt}%
+\setlength{\parskip}{0pt}%
+\setlength{\parsep}{0pt}%
+}
+
+% ----------------------------------------------------------------------------
+% *** START BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+\usepackage[
+	backend=biber, 
+%	style = numeric,
+	style=phys, % без doi
+	maxbibnames=99,
+	citestyle=numeric,
+	giveninits=true,
+	isbn=true,
+	url=true,
+	natbib=true,
+	sorting=ndymdt,
+	bibencoding=utf8,
+	useprefix=false,
+	language=auto, 
+	autolang=other,
+	backref=true,
+	backrefstyle=none,
+	indexing=cite,
+]{biblatex}
+\DeclareSortingTemplate{ndymdt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort[direction=descending]{
+    \field{sortyear}
+    \field{year}
+    \literal{9999}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{month}
+    \literal{99}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{day}
+    \literal{99}
+  }
+  \sort{
+    \field{sorttitle}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=4,padchar=0]{volume}
+    \literal{9999}
+  }
+}
+
+\addbibresource{Patras.bib}%   \tiny  \scriptsize \footnotesize \normalsize
+\renewcommand*{\bibfont}{\scriptsize} % 
+
+% ----------------------------------------------------------------------------
+% *** END BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+
+\begin{document}
+
+%%%---------------------------------------------------------------------------
+%%% Poster starts 
+%%%---------------------------------------------------------------------------
+
+\typeout{Poster Starts}
+\background{
+  \begin{tikzpicture}[remember picture,overlay]%
+    \draw (current page.north west)+(-2em,-0em) node[anchor=north west]{\hspace{-2em}\includegraphics[height=1.1\textheight]{silhouettes_background}};
+  \end{tikzpicture}%
+}
+
+\begin{poster}{
+  % Show grid to help with alignment
+  grid=false,
+  % Column spacing
+  colspacing=1em,
+  % Color style
+  bgColorOne=Honeydew1,%Thistle1
+  bgColorTwo=LavenderBlush3,
+  borderColor=DeepPink3,
+  headerColorOne=Plum1,%HotPink1,
+  headerColorTwo=Plum4,%HotPink3,
+  headerFontColor=black,
+  boxColorOne=Snow1,
+  boxColorTwo=WhiteSmoke,
+  % Format of textbox
+  textborder=roundedleft,
+  % Format of text header
+  eyecatcher=true,
+  headerborder=open,
+  headerheight=0.08\textheight,
+  headershape=roundedright,
+  headershade=shadelr,
+  headerfont=\Large\textsf, %Sans Serif
+  boxshade=shadelr,
+  background=plain,
+  linewidth=2pt
+  }
+  % Eye Catcher
+  {
+   \includegraphics[height=2.0cm]{LaplandLogo}
+  } % No eye catcher for this poster. If an eye catcher is present, the title is centered between eye-catcher and logo.
+  % Title
+  {\sf %Sans Serif
+  %\bf% Serif
+\Large{Risks of cryogenic landslide hazards and their impact on ecosystems in cold environments}}
+  % Authors
+  {\sf %Sans Serif
+  % Serif
+Polina Lemenkova\hspace{3em}\\
+\normalsize{Presented at: 
+\emph{IRLA2014 International Symposium. The Effects of Irrigation and Drainage on Rural and Urban Landscapes}.\\
+ 26-28 November 2014 | Patras, Greece
+ }
+}
+  % University logo
+{{\begin{minipage}{20em}
+    \hfill
+    \includegraphics[height=2.0cm]{ArcticLogo}%\hspace{3em}    
+    \includegraphics[height=2.0cm]{IRLAlogo}
+  \end{minipage}}
+  }
+
+  \tikzstyle{light shaded}=[top color=baposterBGtwo!30!white,bottom color=baposterBGone!30!white,shading=axis,shading angle=30]
+
+% Width of left inset image
+     \newlength{\leftimgwidth}
+     \setlength{\leftimgwidth}{0.78em+8.0em}
+
+% A coloured circle useful as a bullet with an adjustably strong filling
+    \newcommand{\colouredcircle}[1]{%
+      \tikz{\useasboundingbox (-0.2em,-0.32em) rectangle(0.2em,0.32em); \draw[draw=black,fill=baposterBGone!80!black!#1!white,line width=0.03em] (0,0) circle(0.18em);}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------- COLUMN 0 ----------------------------------%
+
+\headerbox{Abstract}{name=abstract,column=0,row=0}{
+\scriptsize{
+Research focuses on monitoring landscapes downgrading in specific conditions of Arctic ecosystems with cold climate conditions (marshes, permafrost, high humidity and moisture). Specific case study: cryogenic landslides typical for cold environments with permafrost. Area: Yamal Peninsula. Aim: analysis of the environmental changes caused by cryogenic landslides in northern landscapes affecting sensitive Arctic ecosystems. Thaw of the permafrost layer causes destruction of the ground soil layer and activates cryogenic landslide processes. After disaster, vegetation coverage needs a long time to recover, due to the sensitivity of the specific northern environment, and land cover types change. ILWIS GIS was used to process 2 satellite images Landsat TM taken at 1988 and 2011, to assess spatiotemporal changes in the land cover types. Research shown ILWIS GIS based spatial analysis for environmental mapping.
+}}
+ 
+\headerbox{Research Area}{name=area,column=0,below=abstract}{
+\footnotesize{
+Research area: Bovanenkovo region, Yamal Peninsula. Geomorphology: flat homogeneous lowland region with low-lying plains of heights <90m. Such geographic settings create specific local environmental conditions. Yamal has the largest high-latitude wetland system in the World: 900,000 $km^{2}$ of peatlands, wetlands, dense lakes and river network. Seasonal flooding, active erosion, permafrost and local landslides. Dominating tundra vegetation types: heath, grasses, moss, lichens, woody plants (shrubs and willows). Environmental problems: climate change and landslides, affecting landscapes and causing changes in land cover types.
+}
+}
+
+\headerbox{Research Problem}{name=problem,column=0,below=area}{
+\scriptsize{
+Environmental problem of Yamal: cryogenic landslides. Processes of superficial cryogenic landslides are active in tundra. Permafrost serves as a shear surface for sliding, contributes to the landslide formation. Cryogenic landslides develop on fine-grained, saline marine sediments: common destructive disastrous geomorphological hazards on the Yamal Peninsula covering ca 70\% of the area.
+\begin{center}
+	 \includegraphics[height=0.5\linewidth]{F2} 
+\end{center}
+}
+}
+
+\headerbox{Land Cover Types}{name=land,column=0,below=problem}{
+\scriptsize{
+The defined classes include following landscapes types: shrub tundra, willows, tall willows, short shrub tundra, sparse short shrub tundra, dry grass heath, sedge grass tundra, dry short shrub tundra, dry short shrub sedge tundra, wet peatland, peatland (sphagnum). The pixels were associated with land cover classes using their digital numbers, similar to key samples.
+}
+}
+
+\headerbox{Landslides}{name=landslides,column=0,span=1,below=land,above=bottom}{
+\begin{multicols}{2}
+\scriptsize{
+Development of permafrost $=>$ scarce vegetation. Several years after landslides, vegetation changes gradually: grass, moss, lichen, shrub $=>$ sedge $=>$ willows. Landslide-affected areas of bare slopes: willow shrubs $=>$ indicator for former landslides. Vegetation stages show landslides age: early-stage (primitive mosses or lichen) $=>$ recent landslide formation; meadow and willow shrubs with high canopy $=>$ final stage of landslides. Ground waters salinity and chemical content of sediments indicates age of landslides.
+}
+\end{multicols}
+}
+
+%---------------------- COLUMN 1 ----------------------------------%
+
+\headerbox{Mapping}{name=mapping,column=1,span=2,row=0}{
+\begin{center}
+	 \includegraphics[height=0.6\linewidth]{F4} 
+	 \includegraphics[height=0.6\linewidth]{F5}
+\end{center}
+\footnotesize{
+GIS method consists in Landsat TM image classification, spatial analysis and thematic mapping, technically performed in ILIWIS GIS. Landsat scenes for land cover mapping: advantages of application in geosciences and cartography, ca 40 year history of the image record, and free availability. Landsat scenes are series of satellite imagery by NASA and the USGS with 30-m resolution. 
+}
+}
+
+\headerbox{Workflow}{name=workflow,column=1,span=1,below=mapping}{
+\scriptsize{
+Workflow includes following steps:
+\begin{enumerate}
+	\item Data: orthorectified Landsat TM files in GeoTIFF acquired over the area of Bovanenkovo, Yamal Peninsula. Images: 1988 and 2011, taken in growing season with visible vegetation. Data capture, import, converting .img file into ASCII raster format (GDAL). After converting, each image contained collection of 7 Landsat raster bands.
+	\item Data pre-processing: Enhancement of visual color and contrast. Geographic referencing of Landsat TM: setting UTM projection, E Zone 42, N Zone W, WGS 1984 datum (Georeference Corner Editor).
+	\item Area Of Interest (AOI) was identified and cropped on raw images This area shows region in a large scale which represents tundra landscapes.
+	\item Supervised Classification by Minimal Distance method. Method is based on spatial analysis of the spectral signatures of object variables. 
+	\item Sampling of classes: using Sample Set tool in ILWIS GIS. Training pixels for each land cover type with distinguishable contrast colors selected as representative samples and stored as classification key.
+\end{enumerate}	
+}
+}
+
+\headerbox{Results}{name=results,column=1,below=workflow,above=bottom}{
+
+\begin{multicols}{2}
+\scriptsize{
+Willows covers 2750,57 ha in 2011, which is more than in 1988, when it covered 1547,52 ha (both ’tall willows’ and ’willows’ classes). Increase in tundra vegetation: ’short shrub tundra’, ’sparse short shrub tundra’ and ’dry short shrub tundra’ have more areas in 2011 comparing to 1988: ca 5442,00 ha vs 1823,00 ha. Increase of wooden vegetation class goes along with shrunk of grass and heath areas: ’dry grass heath’ had area of 3335.39 ha in 1988, now covers 1204.94 ha. Slight decrease can be noticed in the ’peatlands’ and ’wet peatlands’ classes 3958.40 ha against 2765.41 ha in 2011 by ’wet peatlands’, and 625.71 ha in 1988 vs 488.69 ha by ’peatland (sphagnum)’ class.
+}
+\end{multicols}
+}
+
+%---------------------- COLUMN 2 ----------------------------------%
+
+\headerbox{Geographic Settings}{name=geography,column=2,span=1,below=mapping}{
+\begin{multicols}{2}
+\scriptsize{
+Cryogenic landslides have origin in thawing of underground permafrost layer, which has negative effects destructing upper soil layer and vegetation coverage. Area of the Kara Sea is shallow: almost 40\% of the continental shelf is <50 m. The sea coasts are mostly flat, flooded during the high tide. Located in the area of permafrost distribution, soils are frozen for the most of the year, with the depth of the frozen soil up to 0.2 m in the north and 2 m in the south. The ecosystems of the region are adapted towards specific Arctic environment.
+\begin{center}
+    \includegraphics[height=0.9\linewidth]{F1}
+\end{center}
+}
+\end{multicols}
+}
+
+\headerbox{Conclusions}{name=conclusions,column=2,span=1,below=geography,above=bottom}{
+\begin{multicols}{2}
+\scriptsize{
+Results show overall increase of woody vegetation (willows and shrubs), not typical for local environment, and decrease of peatlands, grass and heath. Environmental factors: active cryogenic landsliding. Climatic factor: increase of annual average T $=>$ permafrost thawing and abnormal increase of woody plants. Gradual changes in plant species patterns and distribution affect landscapes in Yamal. Triggering factors: complex climatic-environmental changes in Arctic and local cryogenic processes, e.g. successive change in vegetation recovering after cryogenic landslides.
+    	 \includegraphics[height=0.8\linewidth]{F3}
+}
+\end{multicols}
+}
+
+%---------------------- COLUMN 3 ----------------------------------%
+
+\headerbox{Acknowledgements}{name=thanks,column=3,span=1,row=0}{
+\scriptsize{
+Current work has been supported by the \bf{Finnish Center for International Mobility (CIMO)} \normalfont{for author's research stay at the} \bf{University of Lapland, Arctic Center} \normalfont{(Grant No. TM-10-7124), during 01 July - 31 December 2011.} 
+}
+}
+
+\headerbox{Bibliography}{name=references,column=3,below=thanks,above=bottom}{
+\scriptsize{Author's publications on Geography, Remote Sensing and GIS}:\\
+    \tiny
+\vspace{-2.5em}
+	\nocite{*}
+\printbibliography[heading=none]
+}
+  
+\end{poster}%
+%
+\end{document}
+
+%Changing the font size locally (from biggest to smallest):	
+%\Huge
+%\huge
+%\LARGE
+%\Large
+%\large
+%\normalsize (default)
+%\small
+%\footnotesize
+%\scriptsize
+%\tiny
