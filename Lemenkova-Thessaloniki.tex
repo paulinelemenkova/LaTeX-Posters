@@ -1,0 +1,284 @@
+\documentclass[a0paper,portrait,fontscale=0.45]{baposter}
+
+\usepackage{relsize}		% For \smaller
+\usepackage{url}		
+\usepackage{epstopdf}	% Included EPS files automatically converted to PDF to include with pdflatex
+\usepackage[super]{nth}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+%%% Global Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{pix/}}	% Root directory of the pictures 
+\tracingstats=2			% Enabled LaTeX logging with conditionals
+
+%%% Color Definitions
+
+\definecolor{bordercol}{RGB}{40,40,40}
+\definecolor{headercol1}{RGB}{186,215,230}
+\definecolor{headercol2}{RGB}{80,80,80}
+\definecolor{headerfontcol}{RGB}{0,0,0}
+\definecolor{boxcolor}{RGB}{186,215,230}
+
+%%% Save space in lists. Use this after the opening of the list %%%%%%%%%%%%%%%%
+\newcommand{\compresslist}{
+	\setlength{\itemsep}{1pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+}
+
+% ----------------------------------------------------------------------------
+% *** START BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+\usepackage[
+	backend=biber, 
+%	style = numeric,
+	style=phys, % без doi
+	maxbibnames=99,
+	citestyle=numeric,
+	giveninits=true,
+	isbn=true,
+	url=true,
+	natbib=true,
+	sorting=ndymdt,
+	bibencoding=utf8,
+	useprefix=false,
+	language=auto, 
+	autolang=other,
+	backref=true,
+	backrefstyle=none,
+	indexing=cite,
+]{biblatex}
+\DeclareSortingTemplate{ndymdt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort[direction=descending]{
+    \field{sortyear}
+    \field{year}
+    \literal{9999}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{month}
+    \literal{99}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{day}
+    \literal{99}
+  }
+  \sort{
+    \field{sorttitle}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=4,padchar=0]{volume}
+    \literal{9999}
+  }
+}
+
+\addbibresource{Thessaloniki.bib}%   \tiny  \scriptsize \footnotesize \normalsize
+\renewcommand*{\bibfont}{\tiny} % 
+
+% ----------------------------------------------------------------------------
+% *** END BIBLIOGRAPHY <<<
+% ----------------------------------------------------------------------------
+
+%%% Document Start %
+
+\begin{document}
+\typeout{Poster rendering started}
+
+%%% Setting Background Image %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\background{
+	\begin{tikzpicture}[remember picture,overlay]%
+	\draw (current page.north west)+(-2em,2em) node[anchor=north west]
+	{\includegraphics[height=1.1\textheight]{background}};
+	\end{tikzpicture}
+}
+
+%%% General Poster Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% Eye Catcher, Title, Authors and University Images %%%%%%%%%%%%%%%%%%%%%%
+\begin{poster}{
+	grid=false,
+	% Option is left on true though the eyecatcher is not used. The reason is
+	% that we have a bit nicer looking title and author formatting in the headercol
+	% this way
+%	eyecatcher=false, 
+	borderColor=bordercol,
+	headerColorOne=headercol1,
+	headerColorTwo=headercol2,
+	headerFontColor=headerfontcol,
+	% Only simple background color used, no shading, so boxColorTwo isn't necessary
+	boxColorOne=boxcolor,
+	headershape=roundedright,
+	headerfont=\Large\sf\bf,
+	textborder=rectangle,
+	background=user,
+	headerborder=open,
+  boxshade=plain
+}
+%%% Eye Cacther %
+{
+          \includegraphics[height=3.0cm]{logoNTU}
+}
+%%% Title %
+{\sf\bf
+	\Huge{Bringing Geospatial Analysis to the Social Studies: \\an Assessment of the City Sprawl in China}
+}
+%%% Author %
+{
+	\vspace{1em} Polina Lemenkova\\
+Presented at: \emph{\nth{10} International Congress of the Hellenic Geographical Society},\\
+ 22 October 2014 | Thessaloniki, Greece
+}
+%%% Logo %
+ % University logo
+ {
+      \includegraphics[height=3.0cm]{logo}
+ }
+
+% ------------------------------------- COLUMN 0 ----------------------------
+
+\headerbox{Introduction}{name=introduction,column=0,row=0}{
+\textcolor{red}{Research area}: Taipei, Taiwan. Located on the north of the island, Taipei is Taiwan's core urban, political and economic center; population >2.6 M continuing to expand affecting urban landscapes.
+\textcolor{red}{Research aim}: spatio-temporal analysis of urban dynamics in study area during 15 years (1990-2005)
+\textcolor{red}{Research objective}: application of GIS methodology and remote sensing data to spatial analysis for a case study of Taipei.
+\textcolor{red}{Data}: Landsat TM images taken from the USGS. \textcolor{red}{Software}: ENVI GIS.
+\vspace{-0.2em}
+\begin{center}
+	\includegraphics[width=0.98\linewidth]{F3}
+\end{center}
+}
+
+\headerbox{Research Problem}{name=problem,column=0,below=introduction}{
+Recently, urbanization is notable in Taipei. Expansion of urban landscapes in Taipei has unique features. Taiwan's exceptional economic and industrial growth since 1980s: "industrial wonder of Taiwan". Country transformed from agriculture-based traditional economy into a highly industrialized high-tech oriented economy. 
+\vspace{-1.0em}
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.48\linewidth]{F1}&
+    \includegraphics[height=0.48\linewidth]{F2}\\[0.2em]
+%    \smaller a) & \smaller b)
+  \end{tabular}
+\end{center}
+
+Changes: modified social and natural landscapes. Taiwan is now a highly urbanized country with 80\% of population living in cities. Intensive urbanization $=>$   affect biodiversity and ecosystems sustainability $=>$ transformation of natural landscapes. Natural land cover type $=>$ human-affected artificial surfaces; city enlarges. Human pressure increases rapidly due to the city expansion. Rapid urbanization affects complex interrelations of natural and urban ecosystems, changes structure, size and shape of landscapes. Taiwan has unique landscapes with high environmental value, outstanding natural beauty, rare and extinct species. Environmental monitoring is effective for city management and nature conservation.
+}
+
+\headerbox{K-mean Classification and Spatial Statistics:}{name=kmeans,column=0,span=1,below=problem}{
+\begin{center}
+	\includegraphics[width=0.405\linewidth]{F14}
+	\includegraphics[width=0.57\linewidth]{F15}
+
+\end{center}
+\vspace{-0.2em}
+\smaller													
+\vspace{-0.4em} 	
+Change detection statistics: process, in 7 steps: 1). Change detection statistics (selection the tool from the menu )2). Setting options of process 3). Choice of 'Initial Stage' image. 4). Choice of 'Final Stage' image 5). Defining equivalent classes 6). Defining pixel size for area statistics 7) Statistics output	
+}
+
+
+\headerbox{Acknowledgements}{name=acknowledgements,column=0,span=1,below=kmeans}{
+\small{						% Make the whole text smaller
+\vspace{-0.4em}			% Save some space at the beginning
+Current work was funded by Taiwan Ministry of Education Short Term Research Award (STRA) for author's 2-month visiting research stay (April - May 2013) at
+National Taiwan University (NTU), Faculty of Geography.}
+} 
+   
+\headerbox{Bibliography}{name=references,column=0,below=acknowledgements}{
+\tiny{Author's publications on Geography, Remote Sensing and GIS}:\\
+%    \tiny
+\vspace{-1.5em}
+	\nocite{*}
+\printbibliography[heading=none]
+}
+
+
+% ------------------------------------- COLUMN 1 ----------------------------
+
+\headerbox{Methods}{name=methods,column=1,span=2,row=0}{
+Workflow includes following steps: 1) Preliminary processing 2) Creation color composites 3) Classification using K-means algorithm 4) Mapping using classification results 5) Accuracy assessment. The preliminary data processing includes image contrast stretching, which is useful as by default, ENVI displays images with a 2\% linear contrast stretch. For better contrast the histogram equalization contrast stretch was applied to the image in order to enhance the visual quality.
+\begin{center}
+	\includegraphics[width=0.24\linewidth]{F9}
+	\includegraphics[width=0.23\linewidth]{F10}
+	\includegraphics[width=0.5\linewidth]{F17}
+\end{center}
+}
+
+\headerbox{Masking ROI}{name=roi,column=1,span=2,below=methods}{
+\begin{center}
+	\includegraphics[width=0.54\linewidth]{F11}
+	\includegraphics[width=0.45\linewidth]{F12}
+\end{center}
+\vspace{-0.2em}
+Region of Interest (ROI) was selected, masked and cut off from the whole image. Subset data via ROI and masking process is shown on the print screens above. Then, the classification is performed. Classification of the land cover types in the city adopted and adjusted to the current studies includes following types: 1) Forests; 2) Urban areas – 2 (roads); 3) Grasslands; 4) Open fields (little or no vegetation); 5) Water areas; 6) Urban vegetation – 1 (bushes); 7) Cultivated lands 8) Agricultural facilities; 9) Urban vegetation –2 (parks and squares); 10) Urban areas -2 (built-up surfaces).
+}
+
+\headerbox{ENVI GIS 4.8: Image Processing}{name=gis,column=1,span=2,below=roi}{
+Left and center: 2005 and 1990 Landsat TM scenes classification (fragment). Random color visualization. Right: Combining classes
+\begin{center}
+ \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
+    \includegraphics[height=0.16\linewidth]{F4}&
+    \includegraphics[height=0.16\linewidth]{F5}&
+    \includegraphics[height=0.16\linewidth]{F6}\\[0.2em]
+%    \smaller a) & \smaller b)
+  \end{tabular}
+\end{center}
+}
+
+\headerbox{Results}{name=results,span=2,column=1,below=gis}{
+
+The analysis of landscape changes was performed by geospatial analysis. 2 satellite images Landsat TM were processed and classified using ENVI GIS. Result of classification: areas occupied by different land cover types were calculated and analyzed. It has been detected that different parts of the city of Taipei were developing with different rate and intensity. 3 different residential types of the city were recognized and mapped. The results demonstrated following outcomes: 1) intensive urban development of the city of Taipei; 2) decline of green areas and natural spaces and, on the contrary, increase in anthropogenic urban spaces; 3) not parallel urban development in different districts of the city of Taipei during the 15-year period of 1990-2005
+\vspace{-0.2em}
+\begin{center}
+	\includegraphics[width=0.49\linewidth]{F7}
+	\includegraphics[width=0.48\linewidth]{F8}
+\end{center}
+
+}
+
+\headerbox{Spatial Analysis}{name=spatial,span=1,column=1,below=results,above=bottom}{
+	\includegraphics[width=1.0\linewidth]{F13}
+Spatial analysis performed by ENVI GIS enabled to process satellite images for urban studies. Spatio-temporal analysis was applied to Landsat TM images taken at 1990 and 2005. Built-in functions of the mathematical K-means algorithm enabled to classify Landsat TM images and derive information on land cover types.
+Image classification was used to analyze landscapes in Taipei which includes built-up areas and natural green areas. 
+}
+
+% ------------------------------------- COLUMN 2 ----------------------------
+
+\headerbox{Conclusion}{name=conclusions,span=1,column=2,below=results,above=bottom}{
+\begin{multicols}{2}	
+	\vspace{-0.2em}
+To resume a resulting table, following conclusion can be drawn. Comparing regions I, II and III, the conclusion is the following:
+\textcolor{red}{Region I} has changes in the land cover types since 1990s. It has much more changes comparing to the core, old city area (region II)
+\textcolor{red}{Region II} (the core city) is the most stable region. It has the least changes, because this area has been already industrialized for a long time.
+\textcolor{red}{Region III}, has notable changes caused by the intensive relocation of the population to Taipei after 1980s. This is the most dynamically developing region of Taipei. 
+Results of image processing and spatial analysis show changes in structure, shape and configuration of urban landscapes in Taipei since 1990. Areas occupied by human activities increased, while natural landscapes undergone modifications. Changes in urban landscapes of Taipei are caused by the increased relocation of population, urbanization and occupied lands for urban needs.
+
+\vspace{0.2em}
+	\includegraphics[width=0.99\linewidth]{F16}
+\end{multicols}
+}
+
+\end{poster}
+\end{document}
+
+%Changing the font size locally (from biggest to smallest):	
+%\Huge
+%\huge
+%\LARGE
+%\Large
+%\large
+%\normalsize (default)
+%\small
+%\footnotesize
+%\scriptsize
+%\tiny
